@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var sGeometry1 = new THREE.SphereGeometry(3, 8, 8, 0);
+			var cubeGeometry1 = new THREE.BoxGeometry(4.5, 4.5, 4.5);
+			var sMaterial1 = new THREE.MeshNormalMaterial({color: 0x77d4f0});
+			var cubeMaterial1 = new THREE.MeshNormalMaterial({color: 0xf69dea});
+			var sphere1 = new THREE.Mesh(sGeometry1, sMaterial1);
+			var tGeometry = new THREE.TorusGeometry( 6, 0.5, 10, 50 );
+			var tMaterial = new THREE.MeshNormalMaterial( { color: 0xffff00 } );
+			var torus1 = new THREE.Mesh( tGeometry, tMaterial );
+			var torus2 = new THREE.Mesh( tGeometry, tMaterial );
+			var cube = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
+			scene.add(torus1);
+			scene.add(sphere1);
+			scene.add(cube);
+			scene.add(torus2);
+
+			camera.position.z = 20;
+
+			var animate = function () {
+				requestAnimationFrame( animate );
+
+				sphere1.rotation.z += 0.01;
+				torus1.rotation.x += 0.01;
+				torus1.rotation.y += 0.01;
+				//torus1.rotation.z += 0.01;
+				cube.rotation.z += -0.01;
+				torus2.rotation.x += -0.01;
+				torus2.rotation.y += -0.01;
+				//torus2.rotation.z += -0.01;
+
+				renderer.render( scene, camera );
+			};
+
+			animate();
+		</script>
+	</body>
+</html>
